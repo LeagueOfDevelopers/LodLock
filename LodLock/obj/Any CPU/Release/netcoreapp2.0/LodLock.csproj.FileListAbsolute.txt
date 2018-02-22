@@ -1,0 +1,10 @@
+Y:\Projects\Net\LodLock\LodLock\bin\Any CPU\Release\netcoreapp2.0\LodLock.deps.json
+Y:\Projects\Net\LodLock\LodLock\bin\Any CPU\Release\netcoreapp2.0\LodLock.runtimeconfig.json
+Y:\Projects\Net\LodLock\LodLock\bin\Any CPU\Release\netcoreapp2.0\LodLock.runtimeconfig.dev.json
+Y:\Projects\Net\LodLock\LodLock\bin\Any CPU\Release\netcoreapp2.0\LodLock.dll
+Y:\Projects\Net\LodLock\LodLock\bin\Any CPU\Release\netcoreapp2.0\LodLock.pdb
+Y:\Projects\Net\LodLock\LodLock\obj\Any CPU\Release\netcoreapp2.0\LodLock.csproj.CoreCompileInputs.cache
+Y:\Projects\Net\LodLock\LodLock\obj\Any CPU\Release\netcoreapp2.0\LodLock.AssemblyInfoInputs.cache
+Y:\Projects\Net\LodLock\LodLock\obj\Any CPU\Release\netcoreapp2.0\LodLock.AssemblyInfo.cs
+Y:\Projects\Net\LodLock\LodLock\obj\Any CPU\Release\netcoreapp2.0\LodLock.dll
+Y:\Projects\Net\LodLock\LodLock\obj\Any CPU\Release\netcoreapp2.0\LodLock.pdb
