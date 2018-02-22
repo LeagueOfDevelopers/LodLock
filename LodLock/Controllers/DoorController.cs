@@ -11,7 +11,9 @@ namespace LodLock.Controllers
         [Route("main")]
         public IActionResult Main(IFormFile message, [FromHeader]string xSerN, [FromHeader] string xAuthKey)
         {
-            var bytes = new StreamReader(message.OpenReadStream()).ReadToEnd();
+            var ms = new MemoryStream();
+            message.OpenReadStream().CopyTo(ms);
+            var bytes = ms.ToArray();
             return Ok(new { All = bytes });
         }
     }
