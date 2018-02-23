@@ -1,5 +1,4 @@
-﻿using System.IO;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LodLock.Controllers
@@ -11,10 +10,7 @@ namespace LodLock.Controllers
         [Route("main")]
         public IActionResult Main(IFormFile message, [FromHeader]string xSerN, [FromHeader] string xAuthKey)
         {
-            var ms = new MemoryStream();
-            message.OpenReadStream().CopyTo(ms);
-            var bytes = ms.ToArray();
-            return Ok(new { All = bytes });
+            return Ok();
         }
     }
 }
