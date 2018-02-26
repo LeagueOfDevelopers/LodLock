@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System.IO;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LodLock.Controllers
@@ -11,9 +12,9 @@ namespace LodLock.Controllers
         public IActionResult Main(
             IFormFile message, 
             [FromHeader]string X_SER_N, 
-            [FromHeader]dynamic data)
+            [FromHeader]Stream data)
         {
-            //main
+            var body=new StreamReader(data).ReadToEndAsync();
             return Ok();
         }
     }
