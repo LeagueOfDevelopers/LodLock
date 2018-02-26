@@ -34,7 +34,7 @@ namespace Z
             if (!ConverterHandler.Equals(IntPtr.Zero)) {
                 return;
             }
-            int hr = ZGIntf.ZG_Initialize(ZPIntf.ZP_IF_NO_MSG_LOOP);
+            int hr = ZGIntf.ZG_Initialize(ZPIntf.ZP_IF_LOG);  //ZP_IF_NO_MSG_LOOP
             if (hr < 0)
             {
                 Debug.WriteLine("Ошибка ZG_Initialize: " + hr);
