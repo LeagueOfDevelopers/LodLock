@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27205.2004
+VisualStudioVersion = 15.0.27130.2026
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LodLock", "LodLock\LodLock.csproj", "{14482D29-13EA-44BF-ACA1-415C05260539}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LodLock", "LodLock\LodLock.csproj", "{14482D29-13EA-44BF-ACA1-415C05260539}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LodLockLib", "LodLockLib\LodLockLib.csproj", "{86601B90-BD0E-4364-B705-AB206BAEF374}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{14482D29-13EA-44BF-ACA1-415C05260539}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{14482D29-13EA-44BF-ACA1-415C05260539}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{14482D29-13EA-44BF-ACA1-415C05260539}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86601B90-BD0E-4364-B705-AB206BAEF374}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86601B90-BD0E-4364-B705-AB206BAEF374}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86601B90-BD0E-4364-B705-AB206BAEF374}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86601B90-BD0E-4364-B705-AB206BAEF374}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
