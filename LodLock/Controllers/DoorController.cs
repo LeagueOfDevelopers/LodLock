@@ -8,7 +8,10 @@ namespace LodLock.Controllers
     {
         [HttpPost]
         [Route("main")]
-        public IActionResult Main(IFormFile message, [FromHeader]string X_SER_N, [FromHeader] string X_AUTH_KEY)
+        public IActionResult Main(
+            IFormFile message, 
+            [FromHeader]string X_SER_N, 
+            [FromHeader]dynamic data)
         {
             //main
             return Ok();
