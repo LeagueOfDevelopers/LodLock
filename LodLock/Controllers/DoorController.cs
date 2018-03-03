@@ -15,8 +15,8 @@ namespace LodLock.Controllers
         [Route("main")]
         public IActionResult Main(IFormFile message,[FromHeader]byte[] data)
         {
-            api.init("85.143.104.47:1111");
             var headers = Request.Headers.ToArray();
+            api.init("85.143.104.47:1111");
             var controllers = api.GetControllers();
             using (StreamReader reader = new StreamReader(Request.Body, Encoding.UTF8))
             {
