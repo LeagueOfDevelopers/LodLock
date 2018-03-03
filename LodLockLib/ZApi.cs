@@ -41,18 +41,15 @@ namespace Z
                 throw new ZCommonException("Ошибка ZG_Initialize").setErrorCode(hr);
             }
             ZG_CVT_INFO ConverterInfo = new ZG_CVT_INFO();
+            ConverterInfo.nType = ZG_CVT_TYPE.ZG_CVT_Z397_WEB;
+            ConverterInfo.nMode = ZG_GUARD_MODE.ZG_GUARD_ADVANCED;
+
             ZG_CVT_OPEN_PARAMS OpenParams = new ZG_CVT_OPEN_PARAMS();
-            if (proxyAddress.Contains(":"))
-            {
-                OpenParams.nPortType = ZP_PORT_TYPE.ZP_PORT_IP;
-            }
-            else
-            {
-                OpenParams.nPortType = ZP_PORT_TYPE.ZP_PORT_COM;
-            }
+            OpenParams.nCvtType = ZG_CVT_TYPE.ZG_CVT_Z397_WEB;
+            OpenParams.nPortType = ZP_PORT_TYPE.ZP_PORT_IP;
             OpenParams.pszName = @proxyAddress;
             OpenParams.nSpeed = ZG_CVT_SPEED.ZG_SPEED_57600;
-
+           
             hr = ZGIntf.ZG_Cvt_Open(ref ConverterHandler, ref OpenParams, ConverterInfo);
             if (hr < 0)
             {
