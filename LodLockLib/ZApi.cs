@@ -48,7 +48,7 @@ namespace Z
             OpenParams.nCvtType = ZG_CVT_TYPE.ZG_CVT_Z397_WEB;
             OpenParams.nPortType = ZP_PORT_TYPE.ZP_PORT_IP;
             OpenParams.pszName = @proxyAddress;
-            OpenParams.nSpeed = ZG_CVT_SPEED.ZG_SPEED_57600;
+            OpenParams.nSpeed = ZG_CVT_SPEED.ZG_SPEED_19200;
            
             hr = ZGIntf.ZG_Cvt_Open(ref ConverterHandler, ref OpenParams, ConverterInfo);
             if (hr < 0)
