@@ -27,6 +27,7 @@ namespace Z
                                                           "Z-9 EHT Net",
                                                           "EuroLock EHT net",
                                                           "Z5R Web",
+                                                           "Z-397 Web",
                                                           "Matrix II Wi-Fi"
                                                       };
 
@@ -43,13 +44,15 @@ namespace Z
             ZG_CVT_INFO ConverterInfo = new ZG_CVT_INFO();
             ConverterInfo.nType = ZG_CVT_TYPE.ZG_CVT_Z397_WEB;
             ConverterInfo.nMode = ZG_GUARD_MODE.ZG_GUARD_ADVANCED;
-
+            ConverterInfo.nSpeed = ZG_CVT_SPEED.ZG_SPEED_19200;
+           
             ZG_CVT_OPEN_PARAMS OpenParams = new ZG_CVT_OPEN_PARAMS();
             OpenParams.nCvtType = ZG_CVT_TYPE.ZG_CVT_Z397_WEB;
             OpenParams.nPortType = ZP_PORT_TYPE.ZP_PORT_IP;
             OpenParams.pszName = @proxyAddress;
             OpenParams.nSpeed = ZG_CVT_SPEED.ZG_SPEED_19200;
-           
+            OpenParams.nSn = 0;
+            
             hr = ZGIntf.ZG_Cvt_Open(ref ConverterHandler, ref OpenParams, ConverterInfo);
             if (hr < 0)
             {
