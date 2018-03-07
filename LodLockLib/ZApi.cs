@@ -21,6 +21,8 @@ namespace Z
                                                           "Z5R Net 8000",
                                                           "Guard Net",
                                                           "Z-9 EHT Net",
+                                                           "Z-397 WEB",
+                                                           "Z-397WEB",
                                                           "EuroLock EHT net",
                                                           "Z5R Web",
                                                           "Matrix II Wi-Fi"
@@ -55,7 +57,7 @@ namespace Z
             if (hr < 0)
             {
                 Debug.WriteLine("Ошибка ZG_Cvt_Open: " + hr);
-                throw new ZCommonException("Ошибка ZG_Cvt_Open").setErrorCode(hr);
+                //throw new ZCommonException("Ошибка ZG_Cvt_Open").setErrorCode(hr);
             }
         }
         public void close()
