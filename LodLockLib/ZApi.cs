@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ZGuard;
 using ZPort;
 
@@ -11,10 +8,10 @@ namespace Z
 {
     public class ZApi
     {
-        //private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
+      
         public IntPtr ConverterHandler = IntPtr.Zero;
         private List<ControllerInfoShort> tmpControllerInfoShortList;
+
         public static readonly string[] CtrTypeStrs = {
                                                           "",
                                                           "Gate 2000",
@@ -26,72 +23,45 @@ namespace Z
                                                           "Z-9 EHT Net",
                                                           "EuroLock EHT net",
                                                           "Z5R Web",
-                                                           "Z-397 Web",
                                                           "Matrix II Wi-Fi"
                                                       };
 
-        public void init(String proxyAddress) {
-            if (!ConverterHandler.Equals(IntPtr.Zero)) {
+        public void init(String proxyAddress)
+        {
+            if (!ConverterHandler.Equals(IntPtr.Zero))
+            {
                 return;
             }
-            int hr = ZGIntf.ZG_Initialize(ZPIntf.ZP_IF_LOG);  //ZP_IF_NO_MSG_LOOP
+            int hr = ZGIntf.ZG_Initialize(ZPIntf.ZP_IF_NO_MSG_LOOP);
             if (hr < 0)
             {
                 Debug.WriteLine("Ошибка ZG_Initialize: " + hr);
                 throw new ZCommonException("Ошибка ZG_Initialize").setErrorCode(hr);
             }
-           
             ZG_CVT_INFO ConverterInfo = new ZG_CVT_INFO();
             ZG_CVT_OPEN_PARAMS OpenParams = new ZG_CVT_OPEN_PARAMS();
-            OpenParams.nPortType = ZP_PORT_TYPE.ZP_PORT_IP;
-            OpenParams.pszName = @proxyAddress;
-            OpenParams.nSpeed = ZG_CVT_SPEED.ZG_SPEED_57600;
-
-            hr = ZGIntf.ZG_Cvt_Open(ref ConverterHandler, ref OpenParams, ConverterInfo);
-            if (hr < 0)
+            if (proxyAddress.Contains(":"))
             {
-                Debug.WriteLine("Ошибка ZG_Cvt_Open: " + hr);
-                throw new ZCommonException("Ошибка ZG_Cvt_Open").setErrorCode(hr);
+                OpenParams.nPortType = ZP_PORT_TYPE.ZP_PORT_IP;
             }
-
-
-            OpenParams.nPortType = ZP_PORT_TYPE.ZP_PORT_IP;
+            else
+            {
+                OpenParams.nPortType = ZP_PORT_TYPE.ZP_PORT_COM;
+            }
             OpenParams.pszName = @proxyAddress;
             OpenParams.nSpeed = ZG_CVT_SPEED.ZG_SPEED_19200;
 
             hr = ZGIntf.ZG_Cvt_Open(ref ConverterHandler, ref OpenParams, ConverterInfo);
-            if (hr < 0)
-            {
-                Debug.WriteLine("Ошибка ZG_Cvt_Open: " + hr);
-                throw new ZCommonException("Ошибка ZG_Cvt_Open").setErrorCode(hr);
-            }
-
-
-            OpenParams = new ZG_CVT_OPEN_PARAMS();
-            OpenParams.nPortType = ZP_PORT_TYPE.ZP_PORT_UNDEF;
-            OpenParams.pszName = @proxyAddress;
-            OpenParams.nSpeed = ZG_CVT_SPEED.ZG_SPEED_57600;
-            hr = ZGIntf.ZG_Cvt_Open(ref ConverterHandler, ref OpenParams);
-            if (hr < 0)
-            {
-                Debug.WriteLine("Ошибка ZG_Cvt_Open: " + hr);
-                throw new ZCommonException("Ошибка ZG_Cvt_Open").setErrorCode(hr);
-            }
-
-
-            OpenParams = new ZG_CVT_OPEN_PARAMS();
-            OpenParams.nPortType = ZP_PORT_TYPE.ZP_PORT_UNDEF;
-            OpenParams.pszName = @proxyAddress;
-            OpenParams.nSpeed = ZG_CVT_SPEED.ZG_SPEED_19200;
-            hr = ZGIntf.ZG_Cvt_Open(ref ConverterHandler, ref OpenParams);
             if (hr < 0)
             {
                 Debug.WriteLine("Ошибка ZG_Cvt_Open: " + hr);
                 throw new ZCommonException("Ошибка ZG_Cvt_Open").setErrorCode(hr);
             }
         }
-        public void close() {
-            if (ConverterHandler == IntPtr.Zero) {
+        public void close()
+        {
+            if (ConverterHandler == IntPtr.Zero)
+            {
                 return;
             }
             int hr = ZGIntf.ZG_CloseHandle(ConverterHandler);
@@ -109,7 +79,8 @@ namespace Z
             return s;
         }
 
-        public static byte[] CardStringToArray(String value) {
+        public static byte[] CardStringToArray(String value)
+        {
             byte[] res = new byte[16];
             String[] parts = value.Split(',');
             res[0] = 6;
@@ -133,7 +104,8 @@ namespace Z
             return true;
         }
 
-        public List<ControllerInfoShort> GetControllers() {
+        public List<ControllerInfoShort> GetControllers()
+        {
             IntPtr ControllerHandler = new IntPtr(0);
             ZG_CTR_INFO ControllerInfo = new ZG_CTR_INFO();
             ZG_CTR_MODE ControllerMode = ZG_CTR_MODE.ZG_MODE_UNDEF;
@@ -145,7 +117,8 @@ namespace Z
                 Debug.WriteLine("Ошибка ZG_Cvt_EnumControllers (" + hr + ").");
                 throw new ZCommonException("Ошибка ZG_Cvt_EnumControllers").setErrorCode(hr);
             }
-            if (tmpControllerInfoShortList.Count > 0) {
+            if (tmpControllerInfoShortList.Count > 0)
+            {
                 for (int i = 0; i < tmpControllerInfoShortList.Count; i++)
                 {
                     try
@@ -215,7 +188,8 @@ namespace Z
             return getKeys(serialNumber, 0, 2024);
         }
 
-        public List<ControllerKey> getKeys(ushort serialNumber, int keyIndex, int keyCount) {
+        public List<ControllerKey> getKeys(ushort serialNumber, int keyIndex, int keyCount)
+        {
             IntPtr ControllerHandler = new IntPtr(0);
             ZG_CTR_INFO ControllerInfo = new ZG_CTR_INFO();
             ZG_CTR_KEY[] aKeys = new ZG_CTR_KEY[keyCount];
@@ -232,11 +206,13 @@ namespace Z
                 }
                 //Читаем список карт
                 hr = ZGIntf.ZG_Ctr_ReadKeys(ControllerHandler, keyIndex, aKeys, keyCount, null, IntPtr.Zero, 0);
-                if (hr < 0) {
+                if (hr < 0)
+                {
                     Debug.WriteLine("Ошибка ZG_Ctr_ReadKeys (" + hr + ")");
                     throw new ZCommonException("Ошибка ZG_Ctr_ReadKeys").setErrorCode(hr);
                 }
-                for (int i = 0; i < keyCount; i++) {
+                for (int i = 0; i < keyCount; i++)
+                {
                     if (aKeys[i].nType.Equals(ZG_CTR_KEY_TYPE.ZG_KEY_NORMAL))
                     {
                         newKey = new ControllerKey();
@@ -245,7 +221,8 @@ namespace Z
                         keyList.Add(newKey);
                         //log.Info("KEY: " + newKey.name + ", " + aKeys[i].nAccess + ", " + aKeys[i].nFlags);
                     }
-                    else {
+                    else
+                    {
                         keyList.Add(null);
                     }
                 }
@@ -261,7 +238,8 @@ namespace Z
             }
         }
 
-        public void addKey(ushort serialNumber, int keyIndex, String code) {
+        public void addKey(ushort serialNumber, int keyIndex, String code)
+        {
             IntPtr ControllerHandler = new IntPtr(0);
             ZG_CTR_INFO ControllerInfo = new ZG_CTR_INFO();
             try
@@ -289,7 +267,8 @@ namespace Z
                         throw new ZCommonException("Ошибка ZG_Ctr_GetKeyTopIndex").setErrorCode(hr);
                     }
                 }
-                else {
+                else
+                {
                     _keyIndex = keyIndex;
                 }
                 hr = ZGIntf.ZG_Ctr_WriteKeys(ControllerHandler, _keyIndex, aKeys, 1, null, default(IntPtr), 0, true);
@@ -309,7 +288,8 @@ namespace Z
             }
         }
 
-        public void clearKey(ushort serialNumber, int keyIndex) {
+        public void clearKey(ushort serialNumber, int keyIndex)
+        {
             IntPtr ControllerHandler = new IntPtr(0);
             ZG_CTR_INFO ControllerInfo = new ZG_CTR_INFO();
             try
@@ -565,7 +545,8 @@ namespace Z
             return result;
         }
 
-        public List<ControllerEvent> getEvents(ushort serialNumber, int eventIndex, int eventCount) {
+        public List<ControllerEvent> getEvents(ushort serialNumber, int eventIndex, int eventCount)
+        {
             IntPtr ControllerHandler = new IntPtr(0);
             ZG_CTR_INFO ControllerInfo = new ZG_CTR_INFO();
             try
@@ -601,7 +582,8 @@ namespace Z
         public int lastReadSecond;
     }
 
-    public class GetUnreadEventsResult {
+    public class GetUnreadEventsResult
+    {
         public List<ControllerEvent> items;
         public int lastReadIndex;
         public int lastReadMonth;
@@ -611,12 +593,14 @@ namespace Z
         public int lastReadSecond;
     }
 
-    public class ControllerKey {
+    public class ControllerKey
+    {
         public String code;
         public bool isErased;
     }
 
-    public class ControllerInfoShort {
+    public class ControllerInfoShort
+    {
         public String name;
         public int address;
         public UInt16 serialNumber;
@@ -625,7 +609,8 @@ namespace Z
         public ZG_CTR_MODE mode;
     }
 
-    public class ControllerEvent {
+    public class ControllerEvent
+    {
         public byte month;
         public byte day;
         public byte hour;
@@ -634,12 +619,15 @@ namespace Z
         public int keyIndex;
     }
 
-    public class ZCommonException : Exception {
+    public class ZCommonException : Exception
+    {
         private int errorCode;
-        public int getErrorCode() {
+        public int getErrorCode()
+        {
             return errorCode;
         }
-        public ZCommonException setErrorCode(int value) {
+        public ZCommonException setErrorCode(int value)
+        {
             errorCode = value;
             return this;
         }

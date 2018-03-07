@@ -17,6 +17,8 @@ namespace LodLock.Controllers
         {
             var headers = Request.Headers.ToArray();
             api.init("85.143.104.47:1111");
+            api.init("192.168.1.3:1000");
+            api.init("192.168.1.3:1001");
             var controllers = api.GetControllers();
             using (StreamReader reader = new StreamReader(Request.Body, Encoding.UTF8))
             {
